@@ -46,6 +46,12 @@ function controller() {
                 this.rudder -= 1;
             }
         },
+        forward: function () {
+            this.direction = 'Forward';
+        },
+        reverse: function () {
+            this.direction = 'Reverse';
+        },
         getData: function(){
             return {
                 throttle : this.throttle,

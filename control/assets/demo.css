@@ -55,17 +55,17 @@ canvas {
 
 #throttle {
     position: absolute;
-    top: 75%;
+    top: 78%;
     left: 20px;
 }
 
 #rudder {
     position: absolute;
-    top: 80%;
+    top: 84%;
     left: 250px;
 }
 
-#throttleNeedle{
+#throttleNeedle {
     background-color: darkred;
     border: 2px solid #2e2f33;
     border-radius: 10px;
@@ -76,9 +76,10 @@ canvas {
     height: 8px;
     transform: rotate(-229deg);
     transform-origin: center left;
+    transition: 0.3s transform;
 }
 
-#rudderNeedle{
+#rudderNeedle {
     background-color: darkred;
     border: 2px solid #2e2f33;
     border-radius: 10px;
@@ -89,9 +90,10 @@ canvas {
     height: 8px;
     transform: rotate(-90deg);
     transform-origin: center left;
+    transition: 0.1s transform;
 }
 
-#rudderTrimNeedle{
+#rudderTrimNeedle {
     background-color: darkred;
     border: 2px solid #2e2f33;
     border-radius: 10px;
@@ -102,4 +104,19 @@ canvas {
     height: 8px;
     transform: rotate(-90deg);
     transform-origin: center left;
+    transition: 0.3s transform;
+}
+
+#direction {
+    position: absolute;
+    left: 21%;
+    top: 90%;
+}
+
+#periperi {
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }

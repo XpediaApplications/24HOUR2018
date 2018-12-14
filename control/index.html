@@ -28,6 +28,8 @@
 <div class="demo-frame">
     <div class="demo-container">
         <img src="http://192.168.100.105:8000/stream.mjpg" id="video"/>
+        <!--<img src="http://192.168.100.141:8000/stream.mjpg" id="video"/>-->
+        <img id="periperi" src="assets/periperi.png"/>
         <!--<canvas id="canvas" width="640" height="480"></canvas>-->
     </div>
 
@@ -49,6 +51,10 @@
         </div>
     </div>
 
+    <div id="direction">
+        <img id="directionImage" src="assets/Forward.png">
+    </div>
+
     <!--<img id="keyboard" style="position:fixed;left:-1000px;" src="assets/keyboard.jpg">-->
     <!--<img id="pacman" style="position:fixed;left:-10000px;" src="assets/pacman.png">-->
     <!--<img id="pontsho" style="position:fixed;left:-10000px;" src="assets/pontsho.png">-->
@@ -57,12 +63,14 @@
 <script>
     window.onload = function () {
 
-        var ws = new WebSocket("ws://localhost:5005");
+        // var ws = new WebSocket("ws://192.168.100.141:5005");
+        var ws = new WebSocket("ws://192.168.100.105:5005");
         ws.onmessage = function (evt) {
             console.log(evt.data);
         };
         ws.onopen = function (evt) {
             ws.send("Hello");
+            console.log("Connected!");
         };
 
         window.onclose = function () {
@@ -79,6 +87,8 @@
             $('#throttleNeedle').css('transform', 'rotate(' + angle + 'deg)');
             $('#rudderNeedle').css('transform', 'rotate(' + rudderangle + 'deg)');
             $('#rudderTrimNeedle').css('transform', 'rotate(' + rudderTrimangle + 'deg)');
+
+            $('#directionImage').attr('src', 'assets/' + window.controller.direction + '.png');
         }
 
         function doKeyDown(e) {
@@ -122,6 +132,14 @@
                 window.controller.moarMultiplier();
             }
 
+            if (e.keyCode == 45) {
+                window.controller.forward();
+            }
+
+            if (e.keyCode == 46) {
+                window.controller.reverse();
+            }
+
             update();
             ws.send(JSON.stringify(window.controller.getData()));
         }
@@ -142,7 +160,7 @@
                     lastData = data;
                 }
             }
-            , 250);
+            , 300);
 
         initGUI(window.controller);
     };
