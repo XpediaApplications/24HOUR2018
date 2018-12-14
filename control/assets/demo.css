@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    background: #2e2f33;
+    border: 0;
+    overflow: hidden;
+}
+
+.hub-title {
+    position: absolute;
+    width: 100%;
+    background: #242529;
+    z-index: 2;
+    padding: .5em 0;
+    text-shadow: 1px 1px 3px #375a88;
+    border-bottom: 1px solid #375a88;
+}
+
+.hub-title a {
+    color: #fff;
+    border-bottom: 1px dotted #a64ceb;
+    text-decoration: none;
+    text-shadow: 1px 1px 3px #375a88;
+}
+
+.hub-title p {
+    color: #5885a5;
+    text-align: center;
+    font-size: 30px;
+    text-shadow: 1px 1px 3px #375a88;
+}
+
+#stats {
+    right: 50px;
+    right: 50px;
+}
+
+#video {
+    margin: 0px !important;
+    padding: 0px !important;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+}
+
+#throttle {
+    position: absolute;
+    top: 75%;
+    left: 20px;
+}
+
+#rudder {
+    position: absolute;
+    top: 80%;
+    left: 250px;
+}
+
+#throttleNeedle{
+    background-color: darkred;
+    border: 2px solid #2e2f33;
+    border-radius: 10px;
+    position: absolute;
+    left: 112px;
+    top: 100px;
+    width: 75px;
+    height: 8px;
+    transform: rotate(-229deg);
+    transform-origin: center left;
+}
+
+#rudderNeedle{
+    background-color: darkred;
+    border: 2px solid #2e2f33;
+    border-radius: 10px;
+    position: absolute;
+    left: 77px;
+    top: 62px;
+    width: 47px;
+    height: 8px;
+    transform: rotate(-90deg);
+    transform-origin: center left;
+}
+
+#rudderTrimNeedle{
+    background-color: darkred;
+    border: 2px solid #2e2f33;
+    border-radius: 10px;
+    position: absolute;
+    left: 77px;
+    top: 111px;
+    width: 35px;
+    height: 8px;
+    transform: rotate(-90deg);
+    transform-origin: center left;
+}

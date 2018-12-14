@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>We need Control!</title>
+    <link rel="stylesheet" href="assets/demo.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
+    <script src="./build/dat.gui.js"></script>
+    <!--<script src="assets/stats.min.js"></script>-->
+    <script src="gui.js"></script>
+    <script src="controller.js"></script>
+</head>
+<body>
+<!--<div class="hub-title">-->
+<!--<p>Welcome to _FLATLAND_</p>-->
+<!--</div>-->
+
+<div class="demo-frame">
+    <div class="demo-container">
+        <!--<img src="http://192.168.100.105:8000/stream.mjpg" id="video"/>-->
+        <!--<canvas id="canvas" width="640" height="480"></canvas>-->
+    </div>
+
+    <!--<div id="throttle_upright">-->
+    <!--<center id="throttle"></center>-->
+    <!--</div>-->
+
+    <div id="rudder">
+        <img src="assets/rudder.png">
+        <div id="rudderNeedle">
+        </div>
+        <div id="rudderTrimNeedle">
+        </div>
+    </div>
+
+    <div id="throttle">
+        <img src="assets/throttle.png">
+        <div id="throttleNeedle">
+        </div>
+    </div>
+
+    <!--<img id="keyboard" style="position:fixed;left:-1000px;" src="assets/keyboard.jpg">-->
+    <!--<img id="pacman" style="position:fixed;left:-10000px;" src="assets/pacman.png">-->
+    <!--<img id="pontsho" style="position:fixed;left:-10000px;" src="assets/pontsho.png">-->
+</div>
+
+<script>
+    window.onload = function () {
+
+        var ws = new WebSocket("ws://localhost:5005");
+        ws.onmessage = function (evt) {
+            console.log(evt.data);
+        };
+        ws.onopen = function (evt) {
+            ws.send("Hello");
+        };
+
+        window.onclose = function () {
+            ws.close();
+        };
+
+        var video = document.getElementById('video');
+        window.controller = controller();
+
+        function update() {
+            var angle = (55 - ((10 - window.controller.throttle) * 28.4));
+            var rudderangle = (-7 - ((10 - window.controller.rudder) * 8.45));
+            var rudderTrimangle = (31 - ((10 - window.controller.rudderTrim) * 11.85));
+            $('#throttleNeedle').css('transform', 'rotate(' + angle + 'deg)');
+            $('#rudderNeedle').css('transform', 'rotate(' + rudderangle + 'deg)');
+            $('#rudderTrimNeedle').css('transform', 'rotate(' + rudderTrimangle + 'deg)');
+        }
+
+        function doKeyDown(e) {
+            if (e.keyCode == 87 || e.keyCode == 38) {
+                window.controller.moarSpeed();
+            }
+
+            if (e.keyCode == 83 || e.keyCode == 40) {
+                window.controller.goSlower();
+            }
+
+            if (e.keyCode == 65 || e.keyCode == 37) {
+                window.controller.goLeft();
+            }
+
+            if (e.keyCode == 68 || e.keyCode == 39) {
+                window.controller.goRight();
+            }
+
+            if (e.keyCode == 35) {
+                window.controller.hardStop();
+            }
+
+            if (e.keyCode == 36) {
+                window.controller.fullSpeedAheadCaptain();
+            }
+
+            if (e.keyCode == 33) {
+                window.controller.trimLeft();
+            }
+
+            if (e.keyCode == 34) {
+                window.controller.trimRight();
+            }
+
+            if (e.keyCode == 111) {
+                window.controller.lessMultiplier();
+            }
+
+            if (e.keyCode == 106) {
+                window.controller.moarMultiplier();
+            }
+
+            update();
+
+        }
+
+        window.addEventListener("keypress", doKeyDown, {
+            once: false,
+            passive: false
+        });
+
+        window.setInterval(function () {
+                window.controller.returnRudder();
+                update();
+            }
+            , 250);
+
+        initGUI(window.controller);
+    };
+</script>
+
+</body>
+</html>
