@@ -10,45 +10,8 @@ from threading import Condition
 from http import server
 import RPi.GPIO as GPIO
 from time import sleep
-import _thread
 import time
 
-def SetAngle(angle,pwm):
-    duty = angle / 18 + 2
-    GPIO.output(3, True)
-    pwm.ChangeDutyCycle(duty)
-    sleep(1)
-    GPIO.output(3, False)
-    pwm.ChangeDutyCycle(0)
-
-def test_motors(threadName):
-    Motor1A = 3
-    Motor1B = 5
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(Motor1A, GPIO.OUT)
-    GPIO.setup(Motor1B, GPIO.OUT)
-
-    GPIO.setup(12, GPIO.OUT)
-    pwm = GPIO.PWM(12, 50)
-    pwm.start(0)
-
-    while True:
-        GPIO.output(Motor1A, GPIO.HIGH)
-        GPIO.output(Motor1B, GPIO.LOW)
-        sleep(2)
-        SetAngle(30,pwm)
-        GPIO.output(Motor1A, GPIO.LOW)
-        GPIO.output(Motor1B, GPIO.LOW)
-        sleep(2)
-        SetAngle(90,pwm)
-        GPIO.output(Motor1A, GPIO.LOW)
-        GPIO.output(Motor1B, GPIO.HIGH)
-        sleep(2)
-        SetAngle(150,pwm)
-        GPIO.output(Motor1A, GPIO.LOW)
-        GPIO.output(Motor1B, GPIO.LOW)
-        sleep(2)
-        SetAngle(90,pwm)
 PAGE="""\
 <html>
 <head>
@@ -128,7 +91,6 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     camera.start_recording(output, format='mjpeg')
     try:
         address = ('', 8000)
-        _thread.start_new_thread(test_motors, ("test_motors",))
         server = StreamingServer(address, StreamingHandler)
         server.serve_forever()
     finally:
