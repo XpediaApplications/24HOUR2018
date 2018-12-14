@@ -46,6 +46,23 @@ function controller() {
                 this.rudder -= 1;
             }
         },
+        getData: function(){
+            return {
+                throttle : this.throttle,
+                rudder: this.rudder,
+                rudderTrim: this.rudderTrim,
+                throttleMultiply: this.throttleMultiply,
+                direction: this.direction,
+                maxThrottle: this.maxThrottle,
+                minThrottle: this.minThrottle,
+                maxRudder: this.maxRudder,
+                minRudder: this.minRudder,
+                maxMultiplier: this.maxMultiplier,
+                minMultiplier: this.minMultiplier,
+                maxRudderTrim: this.maxRudderTrim,
+                minRudderTrim: this.minRudderTrim
+            };
+        },
 
         throttle: 0,
         rudder: 0,
@@ -56,7 +73,7 @@ function controller() {
         minThrottle: 0,
         maxRudder: 10,
         minRudder: -10,
-        maxMultiplier: 10,
+        maxMultiplier: 2,
         minMultiplier: 1,
         maxRudderTrim: 10,
         minRudderTrim: -10

@@ -27,7 +27,7 @@
 
 <div class="demo-frame">
     <div class="demo-container">
-        <!--<img src="http://192.168.100.105:8000/stream.mjpg" id="video"/>-->
+        <img src="http://192.168.100.105:8000/stream.mjpg" id="video"/>
         <!--<canvas id="canvas" width="640" height="480"></canvas>-->
     </div>
 
@@ -123,7 +123,7 @@
             }
 
             update();
-
+            ws.send(JSON.stringify(window.controller.getData()));
         }
 
         window.addEventListener("keypress", doKeyDown, {
@@ -131,9 +131,16 @@
             passive: false
         });
 
+        var lastData = "";
+
         window.setInterval(function () {
                 window.controller.returnRudder();
                 update();
+                let data = JSON.stringify(window.controller.getData());
+                if (lastData != data) {
+                    ws.send(data);
+                    lastData = data;
+                }
             }
             , 250);
 

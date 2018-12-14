@@ -1,0 +1,15 @@
+{
+    "throttle": 0,
+    "rudder": 0,
+    "rudderTrim": 0,
+    "throttleMultiply": 1,
+    "direction": "Forward",
+    "maxThrottle": 10,
+    "minThrottle": 0,
+    "maxRudder": 10,
+    "minRudder": -10,
+    "maxMultiplier": 10,
+    "minMultiplier": 1,
+    "maxRudderTrim": 10,
+    "minRudderTrim": -10
+}
