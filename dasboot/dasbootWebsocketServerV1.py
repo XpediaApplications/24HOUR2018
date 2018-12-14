@@ -27,23 +27,30 @@ def new_client(client, server):
     server.send_message_to_all("Hey all, a new client has joined us")
 
 def message_received(client, server, message):
-    json = message
-    parsed_json = json.loads(json_string)
-    direction = parsed_json['direction']
-    throttle = int(parsed_json['throttle'])
-    print("Throttle " + throttle)
-    print("Direction " + direction)
-    if throttle == 0:
-        GPIO.output(Motor1A, GPIO.LOW)
-        GPIO.output(Motor1B, GPIO.LOW)
-    elif direction == 'Forward':
-        # Forwards
-        GPIO.output(Motor1A, GPIO.LOW)
-        GPIO.output(Motor1B, GPIO.HIGH)
+    print(message)
+    if message[0] == '{':
+        parsed_json = json.loads(message)
+        direction = parsed_json['direction']
+        throttle = parsed_json['throttle']
+        print("Throttle " + str(throttle))
+        print("Direction " + direction)
+        if throttle == 0:
+            GPIO.output(Motor1A, GPIO.LOW)
+            GPIO.output(Motor1B, GPIO.LOW)
+        elif direction == 'Forward':
+            # Forwards
+            GPIO.output(Motor1A, GPIO.LOW)
+            GPIO.output(Motor1B, GPIO.HIGH)
+        elif direction == 'Reverse':
+            GPIO.output(Motor1A, GPIO.HIGH)
+            GPIO.output(Motor1B, GPIO.LOW)
+    else:
+        print("\n\nNo Json!")
 
-message_received("", "", '{"throttle": 0,"rudder": 0,"rudderTrim": 0,"throttleMultiply": 1,"direction": "Forward","maxThrottle": 10,"minThrottle": 0,"maxRudder": 10,"minRudder": -10,"maxMultiplier": 10,"minMultiplier": 1,"maxRudderTrim": 10,"minRudderTrim": -10}')
-
-server = WebsocketServer(5005, host='127.0.0.1')
+#message_received("", "", '{"throttle": 0,"rudder": 0,"rudderTrim": 0,"throttleMultiply": 1,"direction": "Forward","maxThrottle": 10,"minThrottle": 0,"maxRudder": 10,"minRudder": -10,"maxMultiplier": 10,"minMultiplier": 1,"maxRudderTrim": 10,"minRudderTrim": -10}')
+GPIO.output(Motor1A, GPIO.LOW)
+GPIO.output(Motor1B, GPIO.LOW)
+server = WebsocketServer(5005, host='0.0.0.0')
 server.set_fn_new_client(new_client)
-server.set_fn_message_received(message_received,Motor1A,Motor1B,pwm)
+server.set_fn_message_received(message_received)
 server.run_forever()
