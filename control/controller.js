@@ -41,10 +41,13 @@ function controller() {
         returnRudder: function () {
             if (this.rudder < 0) {
                 this.rudder += 1;
+                return true;
             }else
             if (this.rudder > 0) {
                 this.rudder -= 1;
+                return true;
             }
+            return false;
         },
         forward: function () {
             this.direction = 'Forward';

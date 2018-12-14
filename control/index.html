@@ -144,20 +144,18 @@
             ws.send(JSON.stringify(window.controller.getData()));
         }
 
-        window.addEventListener("keypress", doKeyDown, {
-            once: false,
-            passive: false
-        });
+        window.addEventListener("keypress", doKeyDown, false);
 
         var lastData = "";
 
         window.setInterval(function () {
-                window.controller.returnRudder();
-                update();
-                let data = JSON.stringify(window.controller.getData());
-                if (lastData != data) {
-                    ws.send(data);
-                    lastData = data;
+                if (window.controller.returnRudder()) {
+                    update();
+                    let data = JSON.stringify(window.controller.getData());
+                    if (lastData != data) {
+                        ws.send(data);
+                        lastData = data;
+                    }
                 }
             }
             , 300);
