@@ -10,11 +10,11 @@ function controller() {
         },
         goLeft: function () {
             if (this.rudder >= this.minRudder)
-                this.rudder -= 1;
+                this.rudder -= 10;
         },
         goRight: function () {
             if (this.rudder <= this.maxRudder)
-                this.rudder += 1;
+                this.rudder += 10;
         },
         trimLeft: function () {
             if (this.rudderTrim > this.minRudderTrim)
@@ -40,11 +40,11 @@ function controller() {
         },
         returnRudder: function () {
             if (this.rudder < 0) {
-                this.rudder += 1;
+                this.rudder += 10;
                 return true;
             }else
             if (this.rudder > 0) {
-                this.rudder -= 1;
+                this.rudder -= 10;
                 return true;
             }
             return false;

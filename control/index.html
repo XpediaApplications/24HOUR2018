@@ -65,6 +65,7 @@
 
         // var ws = new WebSocket("ws://192.168.100.141:5005");
         var ws = new WebSocket("ws://192.168.100.105:5005");
+        var ws2 = new WebSocket("ws://localhost:5005");
         ws.onmessage = function (evt) {
             console.log(evt.data);
         };
@@ -142,6 +143,7 @@
 
             update();
             ws.send(JSON.stringify(window.controller.getData()));
+            ws2.send(JSON.stringify(window.controller.getData()));
         }
 
         window.addEventListener("keypress", doKeyDown, false);
@@ -154,6 +156,7 @@
                     let data = JSON.stringify(window.controller.getData());
                     if (lastData != data) {
                         ws.send(data);
+                        ws2.send(data);
                         lastData = data;
                     }
                 }
