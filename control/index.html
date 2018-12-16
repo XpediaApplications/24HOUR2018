@@ -5,15 +5,7 @@
     <title>We need Control!</title>
     <link rel="stylesheet" href="assets/demo.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
+    <script src="assets/jquery-3.3.1.slim.min.js"></script>
 
     <script src="./build/dat.gui.js"></script>
     <!--<script src="assets/stats.min.js"></script>-->
@@ -27,7 +19,7 @@
 
 <div class="demo-frame">
     <div class="demo-container">
-        <img src="http://192.168.100.105:8000/stream.mjpg" id="video"/>
+        <img src="http://192.168.100.141:8000/stream.mjpg" id="video"/>
         <!--<img src="http://192.168.100.141:8000/stream.mjpg" id="video"/>-->
         <img id="periperi" src="assets/periperi.png"/>
         <!--<canvas id="canvas" width="640" height="480"></canvas>-->
@@ -63,9 +55,9 @@
 <script>
     window.onload = function () {
 
-        // var ws = new WebSocket("ws://192.168.100.141:5005");
-        var ws = new WebSocket("ws://192.168.100.105:5005");
-        var ws2 = new WebSocket("ws://localhost:5005");
+        var ws = new WebSocket("ws://192.168.100.141:5005");
+        // var ws = new WebSocket("ws://192.168.100.105:5005");
+        //var ws2 = new WebSocket("ws://localhost:5005");
         ws.onmessage = function (evt) {
             console.log(evt.data);
         };

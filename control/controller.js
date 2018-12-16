@@ -9,12 +9,12 @@ function controller() {
                 this.throttle -= 1;
         },
         goLeft: function () {
-            if (this.rudder >= this.minRudder)
-                this.rudder -= 10;
+            if (this.rudder > this.minRudder)
+                this.rudder -= 1;
         },
         goRight: function () {
-            if (this.rudder <= this.maxRudder)
-                this.rudder += 10;
+            if (this.rudder < this.maxRudder)
+                this.rudder += 1;
         },
         trimLeft: function () {
             if (this.rudderTrim > this.minRudderTrim)
@@ -40,11 +40,11 @@ function controller() {
         },
         returnRudder: function () {
             if (this.rudder < 0) {
-                this.rudder += 10;
+                this.rudder += 1;
                 return true;
             }else
             if (this.rudder > 0) {
-                this.rudder -= 10;
+                this.rudder -= 1;
                 return true;
             }
             return false;
